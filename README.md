@@ -47,3 +47,4 @@ TODO
 4. Giving a nice format to this file
 5. Cross-browser testing
 6. Checking if backgroundHorizontalAlign or backgroundHorizontalAlign starts with "-" and skip adding when necessary
+7. An option to resize the image when it is smaller than container in CENTER and VERTICAL_CENTER modes.
