@@ -37,7 +37,9 @@
 				debug: false,
 				callback: null,
 				imageClass: null,
-				mode: "FILL"
+				mode: "FILL",
+				horizontalAlignFrom: "LEFT",
+				verticalAlignFrom: "TOP"
 			}, options
 		);
 
@@ -114,10 +116,8 @@
 						if (containerWider) {
 							img.attr ("height", container.height ());
 							img.attr ("width", img.attr ("height") * aspectRatioImg);
-							console.log ("a");
 						}
 						else {
-							console.log ("b");
 							img.attr ("width", container.width ());
 							img.attr ("height", img.attr ("width") / aspectRatioImg);
 						}
@@ -151,6 +151,14 @@
 						else if (settings.backgroundHorizontalAlign === 'RIGHT') {
 							img.css ('marginLeft', -diffWidth);
 						}
+						else {
+							if (settings.horizontalAlignFrom === "LEFT") {
+								img.css ('marginLeft', settings.backgroundHorizontalAlign);
+							}
+							else if (settings.horizontalAlignFrom === "RIGHT") {
+								img.css ('marginLeft', "-" + settings.backgroundHorizontalAlign);
+							}
+						}
 					}
 					else {
 						if (settings.backgroundHorizontalAlign === 'LEFT') {
@@ -163,7 +171,12 @@
 							img.css ('marginLeft', -diffWidth);
 						}
 						else {
-							img.css ('marginLeft', settings.backgroundHorizontalAlign);
+							if (settings.horizontalAlignFrom === "LEFT") {
+								img.css ('marginLeft', settings.backgroundHorizontalAlign);
+							}
+							else if (settings.horizontalAlignFrom === "RIGHT") {
+								img.css ('marginLeft', "-" + settings.backgroundHorizontalAlign);
+							}
 						}
 
 						if (settings.backgroundVerticalAlign === 'TOP') {
@@ -176,7 +189,12 @@
 							img.css ('marginTop', -diffHeight);
 						}
 						else {
-							img.css ('marginTop', settings.backgroundVerticalAlign);
+							if (settings.horizontalAlignFrom === "TOP") {
+								img.css ('marginTop', settings.backgroundVerticalAlign);
+							}
+							else if (settings.horizontalAlignFrom === "BOTTOM") {
+								img.css ('marginTop', "-" + settings.backgroundVerticalAlign);
+							}
 						}
 						debugCenterBg ();
 					}
@@ -198,13 +216,15 @@
 
 				function debugResizeBg () {
 					if (settings.debug) {
-						console.log ("IMG CLASS:" + img.attr ('class'));
+						console.log ("IMG WIDTH:" + img.width ());
+						console.log ("IMG HEIGHT:" + img.height ());
 					}
 				}
 
 				function debugCenterBg () {
 					if (settings.debug) {
-
+						console.log ("Width Difference" + diffWidth);
+						console.log ("Height Difference" + diffHeight);
 					}
 				}
 			}
