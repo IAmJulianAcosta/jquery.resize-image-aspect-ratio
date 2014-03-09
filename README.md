@@ -33,7 +33,7 @@ Parameters
 
 BUT...
 --------
-You can do it with CSS! [Explanation](http://jsfiddle.net/Mandarinazul/B8Bby/ "Explanation").  
+You can do it with CSS! [Explanation](http://jsfiddle.net/Mandarinazul/B8Bby/ "Explanation").
 Yes, you are right, max-width and max-height WILL do the trick. But the image will never fit the container if the container is bigger than the image. And sometimes you will need to FILL the container with the image, you can't do it with CSS only. I'll add an option that allows the developer control the behaviour of the plugin between "fill" and "center".
 
 TODO
@@ -44,3 +44,4 @@ TODO
 4. Completing debug info
 5. Align the image in percentaje or pixels units
 6. Option to select "fill" or "center" the image in the container
+7. Giving a nice format to this file
