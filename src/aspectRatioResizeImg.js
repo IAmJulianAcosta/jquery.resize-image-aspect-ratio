@@ -36,7 +36,7 @@
 				resizeContainerType: null,
 				debug: false,
 				callback: null,
-				imageClass: ""
+				imageClass: null
 			}, options
 		);
 
