@@ -23,7 +23,7 @@ Getting Started
 3. Call the function aspectRatioResizeImg on a jQuery object. It must have a <img> object inside it. It is possible to select the class of the object using the parameter imageClass.
 
 Parameters
-====================
+--------
 * backgroundHorizontalAlign. Values: "LEFT" | "RIGHT" | "CENTER". Default: "CENTER"
 * backgroundVerticalAlign. Values: "TOP" | "BOTTOM" | "MIDDLE". Default: "MIDDLE"
 * resizeContainerType: Values: "WIDTH" | "HEIGHT". Default: null. This parameter defines the behavior of container, if it must be resized before the image resize. If "WIDTH" is selected, the container will change its width to match image aspect ratio, if "HEIGHT" is selected, the container will change its height to match image aspect ratio. If nothing is selected, the container won't change its aspect ratio.
@@ -32,7 +32,7 @@ Parameters
 * imageClass: Values: String. Default value: null. The class of the image that will be resized. If nothing is provided, will change any <img> inside the container.
 
 TODO
-====================
+--------
 1. Error handling
 2. Examples
 3. A site for the plugin
