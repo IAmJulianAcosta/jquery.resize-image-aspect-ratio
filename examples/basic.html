@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Basic example</title>
+	<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/themes/smoothness/jquery-ui.css" />
+	<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="container">
+	<img src="http://mandarinazul.co/images/mandarinas.png" alt="Mandarinazul" width="630" height="337" />
+</div>
+<p class="resized">Image resized!</p>
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.4/jquery-ui.min.js"></script>
+<script src="../src/aspectRatioResizeImg.js"></script>
+
+<script>
+	function resize (event, ui) {
+		$ (".container").aspectRatioResizeImg (
+				{
+					backgroundHorizontalAlign: "RIGHT",
+					backgroundVerticalAlign: "MIDDLE",
+					resizeContainerType: null,
+					debug: false,
+					callback: callbackFunction,
+					mode: "VERTICAL_CENTER"
+				}
+		);
+	}
+
+	$ (".container").resizable (
+			{
+				create: resize,
+				start: resize,
+				stop: resize,
+				resize: resize
+			}
+	);
+
+	function callbackFunction () {
+		var currentDate = new Date ();
+		$ (".resized").html (currentDate.getDate() + "/"
+				                     + (currentDate.getMonth()+1)  + "/"
+				                     + currentDate.getFullYear() + " - "
+				                     + currentDate.getHours() + ":"
+				                     + currentDate.getMinutes() + ":"
+				                     + currentDate.getSeconds() + ":"
+				                     + currentDate.getMilliseconds () +"<br />");
+	}
+</script>
+</body>
+</html>

@@ -26,7 +26,7 @@
 
  * Version: 1.0.1
  */
-(function ( $ ) {
+(function ($) {
 	$.fn.aspectRatioResizeImg = function (options) {
 
 		var settings = $.extend (
@@ -36,20 +36,22 @@
 				resizeContainerType: null,
 				debug: false,
 				callback: null,
-				imageClass: null
+				imageClass: null,
+				mode: "FILL"
 			}, options
 		);
 
 		return this.each (
 			function () {
-				var container = $(this);
+				var container = $ (this);
 				if (settings.imageClass) {
 					var img = container.find ("img." + settings.imageClass);
 				}
 				else {
 					var img = container.find ("img");
 				}
-				console.log (img);
+				img.css ("display", "block");
+
 				var aspectRatioContainer;
 				var aspectRatioImg;
 
@@ -63,14 +65,14 @@
 				}
 
 				function updateAspectRatio () {
-					aspectRatioContainer = container.width() / container.height ();
+					aspectRatioContainer = container.width () / container.height ();
 					aspectRatioImg = img.attr ("width") / img.attr ("height");
-					debugAspectRatio();
+					debugAspectRatio ();
 				}
 
 				function resizeContainerF () {
 					if (settings.resizeContainerType === "WIDTH") {
-						var newContainerWidth = container.height()*aspectRatioImg;
+						var newContainerWidth = container.height () * aspectRatioImg;
 						if (container.css ("box-sizing") === "border-box") {
 							newContainerWidth += parseInt (container.css ("padding-left"));
 							newContainerWidth += parseInt (container.css ("padding-right"));
@@ -79,91 +81,133 @@
 						}
 						container.css ('width', newContainerWidth);
 					}
-					else if (settings.resizeContainerType === "HEIGHT") {
-						var newContainerHeight = container.width()/aspectRatioImg;
-						if (container.css ("box-sizing") === "border-box") {
-							newContainerHeight += parseInt (container.css ("padding-top"));
-							newContainerHeight += parseInt (container.css ("padding-bottom"));
-							newContainerHeight += parseInt (container.css ("border-top-width"));
-							newContainerHeight += parseInt (container.css ("border-bottom-width"));
+					else {
+						if (settings.resizeContainerType === "HEIGHT") {
+							var newContainerHeight = container.width () / aspectRatioImg;
+							if (container.css ("box-sizing") === "border-box") {
+								newContainerHeight += parseInt (container.css ("padding-top"));
+								newContainerHeight += parseInt (container.css ("padding-bottom"));
+								newContainerHeight += parseInt (container.css ("border-top-width"));
+								newContainerHeight += parseInt (container.css ("border-bottom-width"));
+							}
+							container.css ('height', newContainerHeight);
 						}
-						container.css ('height', newContainerHeight);
 					}
-					debugResizeContainer();
+					debugResizeContainer ();
 				}
 
-				function resizeBg() {
+				function resizeBg () {
 
-					if (aspectRatioContainer > aspectRatioImg) {
-						img.removeClass('height').addClass('width');
-						img.css ("width", "100%");
-						img.css ("height", "");
-						img.attr ("width", container.width());
-						img.attr ("height", img.attr ("width")/aspectRatioImg);
-					} else {
-						img.removeClass('width').addClass('height');
-						img.css ("width", "");
-						img.css ("height", "100%");
-						img.attr ("height", container.height());
-						img.attr ("width", img.attr ("height")*aspectRatioImg);
+					var containerWider = (aspectRatioContainer > aspectRatioImg) ? true : false;
+
+					if (settings.mode === "FILL") {
+						if (containerWider) {
+							img.attr ("width", container.width ());
+							img.attr ("height", img.attr ("width") / aspectRatioImg);
+						}
+						else {
+							img.attr ("height", container.height ());
+							img.attr ("width", img.attr ("height") * aspectRatioImg);
+						}
 					}
-					debugResizeBg();
+					else if (settings.mode === "FIT") {
+						if (containerWider) {
+							img.attr ("height", container.height ());
+							img.attr ("width", img.attr ("height") * aspectRatioImg);
+							console.log ("a");
+						}
+						else {
+							console.log ("b");
+							img.attr ("width", container.width ());
+							img.attr ("height", img.attr ("width") / aspectRatioImg);
+						}
+					}
+					else if (settings.mode === "STRETCH") {
+						img.attr ("width", container.width ());
+						img.attr ("height", container.height ());
+					}
+					debugResizeBg ();
 				}
 
-				function centerBg() {
-					var containerHeight = container.height();
-					var imgHeight = img.height();
+				function centerBg () {
+					var containerHeight = container.height ();
+					var imgHeight = img.height ();
 					var diffHeight = imgHeight - containerHeight;
-					var containerWidth = container.width();
-					var imgWidth = img.width();
+					var containerWidth = container.width ();
+					var imgWidth = img.width ();
 					var diffWidth = imgWidth - containerWidth;
-					if (settings.backgroundHorizontalAlign === 'LEFT') {
-						img.css('marginLeft', 0);
-					} else if (settings.backgroundHorizontalAlign === 'CENTER') {
-						img.css('marginLeft', -diffWidth / 2);
-					} else if (settings.backgroundHorizontalAlign === 'RIGHT') {
-						img.css('marginLeft', -diffWidth);
-					} else {
-						img.css('marginLeft', settings.backgroundHorizontalAlign);
+					if (settings.mode === "CENTER") {
+						img.css ('marginLeft', -diffWidth / 2);
+						img.css ('marginTop', -diffHeight / 2);
 					}
+					else if (settings.mode === "VERTICAL_CENTER") {
+						img.css ('marginTop', -diffHeight / 2);
+						if (settings.backgroundHorizontalAlign === 'LEFT') {
+							img.css ('marginLeft', 0);
+						}
+						else if (settings.backgroundHorizontalAlign === 'CENTER') {
+							img.css ('marginLeft', -diffWidth / 2);
+						}
+						else if (settings.backgroundHorizontalAlign === 'RIGHT') {
+							img.css ('marginLeft', -diffWidth);
+						}
+					}
+					else {
+						if (settings.backgroundHorizontalAlign === 'LEFT') {
+							img.css ('marginLeft', 0);
+						}
+						else if (settings.backgroundHorizontalAlign === 'CENTER') {
+							img.css ('marginLeft', -diffWidth / 2);
+						}
+						else if (settings.backgroundHorizontalAlign === 'RIGHT') {
+							img.css ('marginLeft', -diffWidth);
+						}
+						else {
+							img.css ('marginLeft', settings.backgroundHorizontalAlign);
+						}
 
-					if (settings.backgroundVerticalAlign === 'TOP') {
-						img.css('marginTop', 0);
-					} else if (settings.backgroundVerticalAlign === 'MIDDLE') {
-						img.css('marginTop', -diffHeight / 2);
-					} else if (settings.backgroundVerticalAlign === 'BOTTOM') {
-						img.css('marginTop', -diffHeight);
-					} else {
-						img.css('marginTop', settings.backgroundVerticalAlign);
+						if (settings.backgroundVerticalAlign === 'TOP') {
+							img.css ('marginTop', 0);
+						}
+						else if (settings.backgroundVerticalAlign === 'MIDDLE') {
+							img.css ('marginTop', -diffHeight / 2);
+						}
+						else if (settings.backgroundVerticalAlign === 'BOTTOM') {
+							img.css ('marginTop', -diffHeight);
+						}
+						else {
+							img.css ('marginTop', settings.backgroundVerticalAlign);
+						}
+						debugCenterBg ();
 					}
-					debugCenterBg();
 				}
 
 				function debugAspectRatio () {
-					if(settings.debug) {
+					if (settings.debug) {
 						console.log ("Container AR :" + aspectRatioContainer);
 						console.log ("Img AR :" + aspectRatioImg);
 					}
 				}
 
-				function debugResizeContainer() {
-					if(settings.debug) {
-						console.log ("Container WIDTH :" + container.width());
-						console.log ("Container HEIGHT :" + container.height());
+				function debugResizeContainer () {
+					if (settings.debug) {
+						console.log ("Container WIDTH :" + container.width ());
+						console.log ("Container HEIGHT :" + container.height ());
 					}
 				}
 
 				function debugResizeBg () {
-					if(settings.debug) {
+					if (settings.debug) {
 						console.log ("IMG CLASS:" + img.attr ('class'));
 					}
 				}
+
 				function debugCenterBg () {
-					if(settings.debug) {
+					if (settings.debug) {
 
 					}
 				}
 			}
 		);
 	}
-}( jQuery ));
+}(jQuery));
