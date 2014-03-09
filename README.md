@@ -37,3 +37,4 @@ TODO
 2. Examples
 3. A site for the plugin
 4. Completing debug info
+5. Align the image in percentaje or pixels units
