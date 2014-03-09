@@ -41,8 +41,9 @@ Yes, you are right, max-width and max-height WILL do the trick. But the image wi
 
 TODO
 --------
-1. Error handling
+1. Error handling when incorrect options are used
 2. Examples
 3. A site for the plugin
 4. Giving a nice format to this file
 5. Cross-browser testing
+6. Checking if backgroundHorizontalAlign or backgroundHorizontalAlign starts with "-" and skip adding when necessary

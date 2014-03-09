@@ -189,10 +189,10 @@
 							img.css ('marginTop', -diffHeight);
 						}
 						else {
-							if (settings.horizontalAlignFrom === "TOP") {
+							if (settings.verticalAlignFrom === "TOP") {
 								img.css ('marginTop', settings.backgroundVerticalAlign);
 							}
-							else if (settings.horizontalAlignFrom === "BOTTOM") {
+							else if (settings.verticalAlignFrom === "BOTTOM") {
 								img.css ('marginTop', "-" + settings.backgroundVerticalAlign);
 							}
 						}
