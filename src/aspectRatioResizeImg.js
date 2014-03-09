@@ -23,9 +23,10 @@
  * OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-
- * Version: 1.2.1
+ *
+ * Version: 1.2.5
  */
+
 (function ($) {
 	$.fn.aspectRatioResizeImg = function (options) {
 
@@ -45,23 +46,33 @@
 
 		return this.each (
 			function () {
-				var container = $ (this);
-				if (settings.imageClass) {
-					var img = container.find ("img." + settings.imageClass);
-				}
-				else {
-					var img = container.find ("img");
-				}
-				img.css ("display", "block");
 
+				/*************** GLOBAL VARIABLES ************/
+				var containerHeight;
+				var imgHeight;
+				var diffHeight;
+				var containerWidth;
+				var imgWidth;
+				var diffWidth;
+				var container = $ (this);
 				var aspectRatioContainer;
 				var aspectRatioImg;
+				var img;
 
+				if (settings.imageClass) {
+					img = container.find ("img." + settings.imageClass);
+				}
+				else {
+					img = container.find ("img");
+				}
+
+				img.css ("display", "block");
 				updateAspectRatio ();
 				resizeContainerF ();
 				updateAspectRatio ();
 				resizeBg ();
 				centerBg ();
+
 				if (settings.callback) {
 					settings.callback ();
 				}
@@ -130,12 +141,12 @@
 				}
 
 				function centerBg () {
-					var containerHeight = container.height ();
-					var imgHeight = img.height ();
-					var diffHeight = imgHeight - containerHeight;
-					var containerWidth = container.width ();
-					var imgWidth = img.width ();
-					var diffWidth = imgWidth - containerWidth;
+					 containerHeight = container.height ();
+					 imgHeight = img.height ();
+					 diffHeight = imgHeight - containerHeight;
+					 containerWidth = container.width ();
+					 imgWidth = img.width ();
+					 diffWidth = imgWidth - containerWidth;
 					if (settings.mode === "CENTER") {
 						img.css ('marginLeft', -diffWidth / 2);
 						img.css ('marginTop', -diffHeight / 2);
