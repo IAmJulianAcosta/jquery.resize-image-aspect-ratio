@@ -36,3 +36,4 @@ TODO
 1. Error handling
 2. Examples
 3. A site for the plugin
+4. Completing debug info
