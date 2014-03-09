@@ -24,7 +24,7 @@
  * OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
  * SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
- * Version: 1.0.1
+ * Version: 1.2
  */
 (function ($) {
 	$.fn.aspectRatioResizeImg = function (options) {
