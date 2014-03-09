@@ -31,6 +31,11 @@ Parameters
 * callback: Values: function. Default value: null. The callback function that should be called after the plugins finishes its execution
 * imageClass: Values: String. Default value: null. The class of the image that will be resized. If nothing is provided, will change any <img> inside the container.
 
+BUT...
+--------
+You can do it with CSS! [Explanation in jsFiddle](http://jsfiddle.net/Mandarinazul/B8Bby/ "Explanation")
+Yes, you are right, max-width and max-height WILL do the trick. But the image will never fit the container if the container is bigger than the image. And sometimes you will need to FILL the container with the image, you can't do it with CSS only. I'll add an option that allows the developer control the behaviour of the plugin between "fill" and "center".
+
 TODO
 --------
 1. Error handling
@@ -38,3 +43,4 @@ TODO
 3. A site for the plugin
 4. Completing debug info
 5. Align the image in percentaje or pixels units
+6. Option to select "fill" or "center" the image in the container
