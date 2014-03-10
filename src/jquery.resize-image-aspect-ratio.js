@@ -186,6 +186,9 @@
 								img.css ('marginLeft', settings.backgroundHorizontalAlign);
 							}
 							else if (settings.horizontalAlignFrom === "RIGHT") {
+								if (settings.backgroundHorizontalAlign.substring (0, 1) === "-") {
+									settings.backgroundHorizontalAlign = settings.backgroundHorizontalAlign.substring (1, settings.backgroundHorizontalAlign.length);
+								}
 								img.css ('marginLeft', "-" + settings.backgroundHorizontalAlign);
 							}
 						}
@@ -204,6 +207,9 @@
 								img.css ('marginTop', settings.backgroundVerticalAlign);
 							}
 							else if (settings.verticalAlignFrom === "BOTTOM") {
+								if (settings.backgroundVerticalAlign.substring (0, 1) === "-") {
+									settings.backgroundVerticalAlign = settings.backgroundVerticalAlign.substring (1, settings.backgroundVerticalAlign.length);
+								}
 								img.css ('marginTop', "-" + settings.backgroundVerticalAlign);
 							}
 						}
