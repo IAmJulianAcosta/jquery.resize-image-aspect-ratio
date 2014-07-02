@@ -1,0 +1,22 @@
+@charset "UTF-8";
+
+/**
+ * Created by julian-acosta on 9/03/14.
+ */
+
+body, html {
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	height: 100%;
+}
+.container {
+	width: 60%;
+	height: 70%;
+	border: dashed 2px #f7860b;
+	overflow: hidden;
+	text-align: center;
+}
+.resized {
+	font-family: Helvetica,Arial, "sans-serif";
+}

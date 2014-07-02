@@ -57,6 +57,8 @@
 				var container = $ (this);
 				var aspectRatioContainer;
 				var aspectRatioImg;
+				var originalImageWidth;
+				var originalImageHeight;
 				var img;
 
 				if (settings.imageClass) {
@@ -78,8 +80,17 @@
 				}
 
 				function updateAspectRatio () {
+					if (settings.originalImageHeight || settings.originalImageWidth) {
+						originalImageWidth = settings.originalImageWidth;
+						originalImageHeight = settings.originalImageHeight;
+					}
+					else {
+						originalImageWidth = img.attr ("width");
+						originalImageHeight = img.attr ("height");
+					}
+
 					aspectRatioContainer = container.width () / container.height ();
-					aspectRatioImg = img.attr ("width") / img.attr ("height");
+					aspectRatioImg = originalImageWidth / originalImageHeight;
 					debugAspectRatio ();
 				}
 
@@ -110,34 +121,65 @@
 				}
 
 				function resizeBg () {
-
-					var containerWider = (aspectRatioContainer > aspectRatioImg) ? true : false;
+					var containerWider;
+					if (aspectRatioContainer > aspectRatioImg) {
+						containerWider = 1;
+					}
+					else if (aspectRatioContainer < aspectRatioImg) {
+						containerWider = 2;
+					}
+					else {
+						containerWider = 0;
+					}
 
 					if (settings.mode === "FILL") {
-						if (containerWider) {
+						if (containerWider == 1) {
 							img.attr ("width", container.width ());
-							img.attr ("height", img.attr ("width") / aspectRatioImg);
+							img.attr ("height", imgWidth / aspectRatioImg);
+							img.width (container.width ());
+							img.height (imgWidth / aspectRatioImg);
+						}
+						else if (containerWider == 2) {
+							img.attr ("height", container.height ());
+							img.attr ("width", imgHeight * aspectRatioImg);
+							img.height (container.height ());
+							img.width (imgHeight * aspectRatioImg);
 						}
 						else {
+							img.attr ("width", container.width ());
 							img.attr ("height", container.height ());
-							img.attr ("width", img.attr ("height") * aspectRatioImg);
+							img.width (container.width ());
+							img.height (container.height ());
 						}
 					}
 					else if (settings.mode === "FIT") {
-						if (containerWider) {
+						if (containerWider == 1) {
 							img.attr ("height", container.height ());
-							img.attr ("width", img.attr ("height") * aspectRatioImg);
+							img.attr ("width", imgHeight * aspectRatioImg);
+							img.height (container.height ());
+							img.width (imgHeight * aspectRatioImg);
+						}
+						else if (containerWider == 2) {
+							img.attr ("width", container.width ());
+							img.attr ("height", imgWidth / aspectRatioImg);
+							img.width (container.width ());
+							img.height (imgWidth / aspectRatioImg);
 						}
 						else {
 							img.attr ("width", container.width ());
-							img.attr ("height", img.attr ("width") / aspectRatioImg);
+							img.attr ("height", container.height ());
+							img.width (container.width ());
+							img.height (container.height ());
 						}
 					}
 					else if (settings.mode === "STRETCH") {
 						img.attr ("width", container.width ());
 						img.attr ("height", container.height ());
+						img.width (container.width ());
+						img.height (container.height ());
 					}
 					debugResizeBg ();
+
 				}
 
 				function centerBg () {
@@ -240,8 +282,8 @@
 
 				function debugCenterBg () {
 					if (settings.debug) {
-						console.log ("Width Difference" + diffWidth);
-						console.log ("Height Difference" + diffHeight);
+						console.log ("Width Difference: " + diffWidth);
+						console.log ("Height Difference: " + diffHeight);
 					}
 				}
 			}

@@ -31,11 +31,14 @@ Parameters
 * callback: Values: function. Default value: null. The callback function that should be called after the plugins finishes its execution
 * imageClass: Values: String. Default value: null. The class of the image that will be resized. If nothing is provided, will change any <img> inside the container.
 * mode: Values: "FILL" | "FIT" | "CENTER" | "VERTICAL_CENTER" | "STRETCH". Default value: FILL.
-* horizontalAlignFrom: "LEFT" | "RIGHT". Defaut: "LEFT": When a custom value is used in backgroundHorizontalAlign, this parameter helps to determine if the align must be calculated from left or right.
+* horizontalAlignFrom: "LEFT" | "RIGHT". Default: "LEFT": When a custom value is used in backgroundHorizontalAlign, this parameter helps to determine if the align must be calculated from left or right.
 * verticalAlignFrom: "TOP" | "BOTTOM". Default: "TOP": When a custom value is used in backgroundVerticalAlign, this parameter helps to determine if the align must be calculated from top or bottom.
+* originalImageWidth: Values: int. If this value is set, it overrides width and height parameters from image. *Necessary when image tag doesn't have have width parameter.
+* originalImageHeight: Values: int. If this value is set, it overrides width and height parameters from image. *Necessary when image tag doesn't have have height parameter.
+
 
 BUT...
---------
+---------
 You can do it with CSS! [Explanation](http://cjwainwright.co.uk/webdev/aspectratio/ "Explanation").
 Yes, you are right, max-width and max-height WILL do the trick. But the image will never fit the container if the container is bigger than the image.
 
@@ -47,3 +50,4 @@ TODO
 4. Giving a nice format to this file
 5. Cross-browser testing
 6. An option to resize the image when it is smaller than container in CENTER and VERTICAL_CENTER modes.
+
